@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+    <ul class="articleWrap">
+        {% for content in contents %}
+        <li>
+            <h2>{{content.title}}</h2>
+            <div class="title-info">
+                <span>作者:{{content.user.username}}</span>
+                <span>时间:{{content.addTime|date('Y年m月d日 H:i:s', -8*60)}}</span>
+                <span>阅读:{{content.views}}</span>
+                <span>评论:{{content.comments.length}}</span>
+            </div>
+            <div class="content">
+                {{content.description}}
+            </div>
+            <button><a target="_blank" href="/view?contentid={{content.id}}">阅读详情</a></button>
+        </li>
+        {% endfor %}
+    </ul>
+    <ul class="mainIndexPagination">
+        <li>
+            {% if page<=1 %}
+            <span>没有上一页了</span>
+            {% else %}
+            <a href="/?category={{category}}&page={{page-1}}">上一页</a>
+            {% endif %}
+        </li>
+        <li>{{page}}/{{pages}}</li>
+        <li>
+            {% if page>= pages %}
+            <span>没有下一页了</span>
+            {% else %}
+            <a href="/?category={{category}}&page={{page+1}}">下一页</a>
+            {% endif %}
+        </li>
+    </ul>
+{% endblock %}

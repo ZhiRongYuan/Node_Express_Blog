@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+    <ul class="articleWrap">
+        <li>
+            <h2>{{content.title}}</h2>
+            <div class="title-info">
+                <span>作者:{{content.user.username}}</span>
+                <span>时间:{{content.addTime|date('Y年m月d日 H:i:s', -8*60)}}</span>
+                <span>阅读:{{content.views}}</span>
+                <span>评论:10</span>
+            </div>
+            <div class="content">
+                {{content.content}}
+            </div>
+        </li>
+    </ul>
+
+    <div class="commentWrap">
+        <div style="height: 30px">
+            <span class="fl">评论</span>
+            <span class="fr">一共有<span id="commentNum"></span>条评论</span>
+        </div>
+        {% if userinfo.id %}
+        <div class="formWrap">
+            <input type="hidden" id="contentId" value="{{content.id}}"/>
+            <textarea  rows="3" class="form-control" name="content" id="content"></textarea>
+            <button type="button" class="btn btn-primary" id="submitCommet">提交</button>
+        </div>
+        {% else %}
+        <div class="info">你还没有登录，请先登录！</div>
+        {% endif %}
+        <ul class="list" id="list">
+
+        </ul>
+    </div>
+<script src="public/js/comment.js"></script>
+{% endblock %}
